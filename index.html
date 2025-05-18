@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cursor Preview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --border-color: #999;
+      --bg-color: #fafafa;
+      --accent-color: #0080ff55;
+      --text-color: #000;
+      --card-bg: #fff;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #333;
+        --border-color: #666;
+        --accent-color: #0080ff;
+        --text-color: #f0f0f0;
+        --card-bg: #222;
+      }
+    }
+
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+    }
+
+    h1, p {
+      text-align: center;
+    }
+
+    .resize-container {
+      position: relative;
+      width: 90%;
+      height: 60vh;
+      max-width: 800px;
+      aspect-ratio: 4 / 3;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border: 2px solid var(--border-color);
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+
+    .resize-handle {
+      position: absolute;
+      z-index: 2;
+      background-color: var(--accent-color)
+    }
+
+    .nw, .ne, .sw, .se {
+      width: 20px;
+      height: 20px;
+    }
+
+    .nw { top: 0; left: 0; cursor: nw-resize; }
+    .ne { top: 0; right: 0; cursor: ne-resize; }
+    .sw { bottom: 0; left: 0; cursor: sw-resize; }
+    .se { bottom: 0; right: 0; cursor: se-resize; }
+
+    .nw::before, .ne::before, .sw::before, .se::before {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .n, .s {
+      width: 30%;
+      height: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .n { top: 0; cursor: n-resize; }
+    .s { bottom: 0; cursor: s-resize; }
+
+    .e, .w {
+      height: 30%;
+      width: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .w { left: 0; cursor: w-resize; }
+    .e { right: 0; cursor: e-resize; }
+
+    .cursor-button-container {
+      text-align: center;
+    }
+
+    .cursor-button {
+      padding: 0.4rem;
+      margin: 0.4rem;
+      font-size: 0.85rem;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      background-color: var(--card-bg);
+      color: var(--text-color);
+      transition: background-color 0.2s;
+      flex: 1 1 calc(33.333% - 1rem);
+      text-align: center;
+      min-width: 100px;
+    }
+
+    .cursor-button:hover {
+      background-color: var(--accent-color);
+    }
+
+    /* cursors */
+    .default { cursor: default; }
+    .pointer { cursor: pointer; }
+    .text { cursor: text; }
+    .move { cursor: move; }
+    .wait { cursor: wait; }
+    .progress { cursor: progress; }
+    .help { cursor: help; }
+    .not-allowed { cursor: not-allowed; }
+    .crosshair { cursor: crosshair; }
+    .alias { cursor: alias; }
+    .copy { cursor: copy; }
+    .cell { cursor: cell; }
+    .context-menu { cursor: context-menu; }
+    .vertical-text { cursor: vertical-text; }
+    .grab { cursor: grab; }
+    .grabbing { cursor: grabbing; }
+    .zoom-in { cursor: zoom-in; }
+    .zoom-out { cursor: zoom-out; }
+    .col-resize { cursor: col-resize; }
+    .row-resize { cursor: row-resize; }
+
+    @media (max-width: 600px) {
+      .cursor-button {
+        flex: 1 1 calc(50% - 1rem);
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🖱 Cursor Preview</h1>
+  <p>Try to focus</p>
+
+  <div class="resize-container">
+    <div class="resize-handle nw"></div>
+    <div class="resize-handle ne"></div>
+    <div class="resize-handle sw"></div>
+    <div class="resize-handle se"></div>
+    <div class="resize-handle n"></div>
+    <div class="resize-handle s"></div>
+    <div class="resize-handle w"></div>
+    <div class="resize-handle e"></div>
+
+    <div class="cursor-button-container">
+      <button class="cursor-button default">default</button>
+      <button class="cursor-button pointer">pointer</button>
+      <button class="cursor-button text">text</button>
+      <button class="cursor-button move">move</button>
+      <button class="cursor-button wait">wait</button>
+      <button class="cursor-button progress">progress</button>
+      <button class="cursor-button help">help</button>
+      <button class="cursor-button not-allowed">not-allowed</button>
+      <button class="cursor-button crosshair">crosshair</button>
+      <button class="cursor-button alias">alias</button>
+      <button class="cursor-button copy">copy</button>
+      <button class="cursor-button cell">cell</button>
+      <button class="cursor-button context-menu">context-menu</button>
+      <button class="cursor-button vertical-text">vertical-text</button>
+      <button class="cursor-button grab">grab</button>
+      <button class="cursor-button grabbing">grabbing</button>
+      <button class="cursor-button zoom-in">zoom-in</button>
+      <button class="cursor-button zoom-out">zoom-out</button>
+      <button class="cursor-button col-resize">col-resize</button>
+      <button class="cursor-button row-resize">row-resize</button>
+    </div>
+  </div>
+</body>
+</html>
